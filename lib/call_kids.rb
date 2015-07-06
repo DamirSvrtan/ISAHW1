@@ -25,11 +25,55 @@
 # Use the super keyword in the Child and Mother constructor (i.e. initialize method)
 
 class Person
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+  end
 end
 
 class Child < Person
+  attr_accessor :telephone_number
+
+  def initialize(name, telephone_number)
+    super(name)
+    @telephone_number = telephone_number
+  end
 end
 
-
 class Mother < Person
+  attr_accessor :kids
+
+  def initialize(name, kids_array)
+    super(name)
+    if (kids_array.length > 0) then #throw exception otherwise ..
+      @kids = kids_array
+    end
+  end
+
+  def kid_names()
+    if (@kids.nil?)
+      return nil
+    end
+    arrayOfNames = []
+    kids.each_index do |i|
+      arrayOfNames[i] = kids[i].name
+    end
+    return arrayOfNames
+  end
+
+  def call_kids()
+    if (@kids.nil?)
+      return nil
+    end
+
+      outputArray = Array.new(kids.size)
+      namesArray = kid_names()
+
+      @kids.each_index do |i|
+        outputArray[i] = "Calling #{namesArray[i]} on #{@kids[i].telephone_number} ..."
+      end
+      return outputArray
+  end
+
 end
